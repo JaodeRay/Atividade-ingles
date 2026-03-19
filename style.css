@@ -1,0 +1,1169 @@
+/*
+  ============================================================
+  FOLHA DE ESTILOS / STYLESHEET
+  Site: Homenagem a Marie Curie / Marie Curie Tribute
+  Tema: Rádio & Radioatividade / Radio & Radioactivity
+  Paleta: Verde radioativo, preto profundo, dourado científico
+  Palette: Radioactive green, deep black, scientific gold
+  ============================================================
+*/
+
+/* ── 1. VARIÁVEIS CSS (Design Tokens) / CSS Variables ── */
+:root {
+  /* Cores principais / Main colors */
+  --color-bg:          #0a0e0a;       /* Preto esverdeado / Greenish black */
+  --color-bg-alt:      #0f1a0f;       /* Fundo alternativo / Alt background */
+  --color-surface:     #111c11;       /* Superfície de cards / Card surface */
+  --color-surface-2:   #162016;       /* Superfície secundária / Secondary surface */
+  --color-border:      #1e3a1e;       /* Bordas sutis / Subtle borders */
+
+  /* Cor de destaque radioativa / Radioactive accent color */
+  --color-accent:      #39ff14;       /* Verde neon / Neon green */
+  --color-accent-dim:  #1a7a0a;       /* Verde escuro / Dark green */
+  --color-accent-glow: rgba(57, 255, 20, 0.25); /* Brilho do acento / Accent glow */
+
+  /* Cor dourada / Gold color */
+  --color-gold:        #d4af37;
+  --color-gold-light:  #f0d060;
+
+  /* Texto / Text */
+  --color-text:        #e8f5e8;       /* Texto principal / Main text */
+  --color-text-muted:  #7a9a7a;       /* Texto secundário / Secondary text */
+  --color-text-dark:   #2a4a2a;       /* Texto em fundos claros / Text on light bg */
+
+  /* Tipografia / Typography */
+  --font-serif:        'Playfair Display', Georgia, serif;
+  --font-mono:         'Roboto Mono', 'Courier New', monospace;
+
+  /* Espaçamentos / Spacing */
+  --spacing-xs:  0.5rem;
+  --spacing-sm:  1rem;
+  --spacing-md:  2rem;
+  --spacing-lg:  4rem;
+  --spacing-xl:  6rem;
+
+  /* Bordas arredondadas / Border radius */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
+  --radius-full: 9999px;
+
+  /* Sombras / Shadows */
+  --shadow-glow: 0 0 20px var(--color-accent-glow);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.6);
+
+  /* Transições / Transitions */
+  --transition-fast:   0.2s ease;
+  --transition-normal: 0.4s ease;
+  --transition-slow:   0.8s ease;
+}
+
+/* ── 2. RESET & BASE ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* Inclui padding e border no tamanho / Include padding and border in size */
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth; /* Rolagem suave ao clicar em âncoras / Smooth scroll on anchor clicks */
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  line-height: 1.7;
+  overflow-x: hidden; /* Evita scroll horizontal / Prevent horizontal scroll */
+}
+
+/* Seleção de texto estilizada / Styled text selection */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Links globais / Global links */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover { color: var(--color-gold); }
+
+/* Imagens responsivas / Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── 3. CONTAINER (largura máxima centralizada) / Centered max-width container ── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* ── 4. PARTÍCULAS DE FUNDO / BACKGROUND PARTICLES ── */
+#particles-container {
+  position: fixed;       /* Fixo na tela / Fixed on screen */
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;  /* Não interfere com cliques / Doesn't interfere with clicks */
+  z-index: 0;            /* Atrás de tudo / Behind everything */
+  overflow: hidden;
+}
+
+/* Cada partícula individual / Each individual particle */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0;
+  animation: float-particle linear infinite; /* Animação de flutuação / Float animation */
+}
+
+/* Animação das partículas / Particle animation */
+@keyframes float-particle {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.2; }
+  100% {
+    transform: translateY(-10vh) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ── 5. BARRA DE NAVEGAÇÃO / NAVIGATION BAR ── */
+#navbar {
+  position: fixed;          /* Fixa no topo / Fixed at top */
+  top: 0; left: 0; right: 0;
+  z-index: 1000;            /* Acima de tudo / Above everything */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem var(--spacing-md);
+  background: rgba(10, 14, 10, 0.92); /* Fundo semi-transparente / Semi-transparent bg */
+  backdrop-filter: blur(12px);         /* Desfoque de vidro / Glass blur */
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--transition-normal);
+}
+
+/* Logo da navbar / Navbar logo */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--color-accent);
+}
+
+/* Símbolo de radioatividade / Radioactivity symbol */
+.radio-symbol {
+  font-size: 1.4rem;
+  animation: spin-slow 8s linear infinite; /* Rotação lenta / Slow rotation */
+  display: inline-block;
+}
+.radio-symbol.large { font-size: 2.5rem; }
+
+/* Animação de rotação / Rotation animation */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Links de navegação / Navigation links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+/* Sublinhado animado nos links / Animated underline on links */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--color-accent);
+  transition: width var(--transition-fast);
+}
+.nav-links a:hover { color: var(--color-accent); }
+.nav-links a:hover::after { width: 100%; }
+
+/* Botão de idioma / Language button */
+#lang-toggle {
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+#lang-toggle:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* ── 6. SEÇÃO HERO ── */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: calc(80px + var(--spacing-lg)) var(--spacing-md) var(--spacing-lg);
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Ondas de rádio / Radio waves */
+.radio-waves {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Cada onda / Each wave */
+.wave {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent);
+  opacity: 0;
+  animation: radio-wave 4s ease-out infinite;
+}
+
+/* Tamanhos e atrasos das ondas / Wave sizes and delays */
+.wave-1 { width: 200px;  height: 200px;  margin: -100px 0 0 -100px; animation-delay: 0s; }
+.wave-2 { width: 400px;  height: 400px;  margin: -200px 0 0 -200px; animation-delay: 1s; }
+.wave-3 { width: 600px;  height: 600px;  margin: -300px 0 0 -300px; animation-delay: 2s; }
+.wave-4 { width: 800px;  height: 800px;  margin: -400px 0 0 -400px; animation-delay: 3s; }
+
+/* Animação de onda de rádio / Radio wave animation */
+@keyframes radio-wave {
+  0%   { opacity: 0.6; transform: scale(0.5); }
+  100% { opacity: 0;   transform: scale(1.5); }
+}
+
+/* Slot de imagem do hero / Hero image slot */
+.hero-image-slot {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;              /* Circular / Circular */
+  border: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-glow), 0 0 60px var(--color-accent-glow);
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 2;
+  margin-bottom: var(--spacing-md);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  background: var(--color-surface);
+}
+.hero-image-slot:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px var(--color-accent-glow), 0 0 80px var(--color-accent-glow);
+}
+
+/* Imagem carregada no hero / Loaded image in hero */
+#hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cobre o espaço sem distorcer / Covers space without distortion */
+  z-index: 1;
+}
+
+/* Conteúdo textual do hero / Hero text content */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+/* Subtítulo do hero / Hero subtitle */
+.hero-subtitle {
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Título principal / Main title */
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 10vw, 7rem); /* Tamanho responsivo / Responsive size */
+  line-height: 1.05;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Partes do nome / Name parts */
+.name-marie {
+  display: block;
+  color: var(--color-text);
+  font-style: italic;
+}
+.name-curie {
+  display: block;
+  color: var(--color-accent);
+  text-shadow: 0 0 30px var(--color-accent-glow);
+  letter-spacing: 0.05em;
+}
+
+/* Tagline / Tagline */
+.hero-tagline {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-md);
+  font-style: italic;
+}
+
+/* Botão CTA / CTA Button */
+.cta-button {
+  display: inline-block;
+  padding: 0.9rem 2.5rem;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+/* Efeito de preenchimento no hover / Fill effect on hover */
+.cta-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-fast);
+  z-index: -1;
+}
+.cta-button:hover {
+  color: var(--color-bg);
+}
+.cta-button:hover::before { transform: scaleX(1); }
+
+/* Indicador de scroll / Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px; height: 40px;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-full);
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+  z-index: 2;
+}
+.scroll-dot {
+  width: 4px; height: 8px;
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+  animation: scroll-bounce 2s ease-in-out infinite; /* Animação de bounce / Bounce animation */
+}
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%       { transform: translateY(12px); opacity: 0.3; }
+}
+
+/* ── 7. CABEÇALHOS DE SEÇÃO / SECTION HEADERS ── */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Tag de seção / Section tag */
+.section-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent-dim);
+  padding: 0.3rem 1rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 1rem;
+}
+
+/* Títulos das seções / Section titles */
+.section-header h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+/* Divisor decorativo / Decorative divider */
+.section-divider {
+  width: 60px; height: 2px;
+  background: var(--color-accent);
+  margin: 0 auto;
+  box-shadow: 0 0 10px var(--color-accent-glow);
+}
+.section-divider.light { background: var(--color-gold); box-shadow: none; }
+
+/* Versão clara do cabeçalho / Light version of header */
+.section-header.light .section-tag { color: var(--color-gold); border-color: var(--color-gold); }
+.section-header.light h2 { color: var(--color-text); }
+
+/* ── 8. SEÇÕES GERAIS / GENERAL SECTIONS ── */
+section {
+  position: relative;
+  z-index: 1;
+  padding: var(--spacing-xl) 0;
+}
+
+/* Seções com fundo alternativo / Sections with alt background */
+#radio-section,
+#legado {
+  background: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ── 9. SEÇÃO BIOGRAFIA / BIOGRAPHY SECTION ── */
+.bio-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px; /* Texto + imagem / Text + image */
+  gap: var(--spacing-lg);
+  align-items: start;
+}
+
+/* Parágrafos da bio / Bio paragraphs */
+.bio-text p {
+  color: var(--color-text-muted);
+  margin-bottom: 1.2rem;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* Linha de estatísticas / Stats row */
+.stats-row {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+/* Card de estatística individual / Individual stat card */
+.stat-card {
+  flex: 1;
+  min-width: 100px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm);
+  text-align: center;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.stat-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Número da estatística / Stat number */
+.stat-number {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+/* Label da estatística / Stat label */
+.stat-label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: 0.3rem;
+}
+
+/* Wrapper da imagem da bio / Bio image wrapper */
+.bio-image-wrapper {
+  position: relative;
+}
+
+/* Decoração de moldura / Frame decoration */
+.image-frame-decoration {
+  position: absolute;
+  top: 15px; left: 15px;
+  right: -15px; bottom: -15px;
+  border: 2px solid var(--color-accent-dim);
+  border-radius: var(--radius-md);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── 10. SLOTS DE IMAGEM / IMAGE SLOTS ── */
+.image-slot {
+  position: relative;
+  z-index: 1;
+  background: var(--color-surface);
+  border: 2px dashed var(--color-accent-dim);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image-slot:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Slot largo (para laboratório) / Wide slot (for laboratory) */
+.image-slot.wide {
+  min-height: 250px;
+  width: 100%;
+}
+
+/* Label do slot (área clicável) / Slot label (clickable area) */
+.slot-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: var(--spacing-md);
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: opacity var(--transition-fast);
+}
+.slot-label:hover { opacity: 0.8; }
+
+/* Ícone do slot / Slot icon */
+.slot-icon {
+  font-size: 2.5rem;
+  opacity: 0.6;
+}
+
+/* Texto do slot / Slot text */
+.slot-text {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Input de arquivo oculto / Hidden file input */
+.image-slot input[type="file"],
+.hero-image-slot input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* Imagem carregada no slot / Loaded image in slot */
+.image-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  display: block !important;
+}
+
+/* Botão de remover imagem / Remove image button */
+.remove-btn {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: rgba(10, 14, 10, 0.8);
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all var(--transition-fast);
+}
+.remove-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Slot do hero (circular) / Hero slot (circular) */
+.hero-image-slot .slot-label {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+.hero-image-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* ── 11. SEÇÃO RÁDIO / RADIO SECTION ── */
+.radio-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Card do elemento rádio / Radium element card */
+.radio-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  text-align: center;
+  transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+.radio-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Card em destaque / Featured card */
+.radio-card.featured {
+  border-color: var(--color-accent);
+  background: var(--color-surface-2);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Símbolo do card de rádio / Radio card symbol */
+.radio-card-symbol {
+  font-size: 3rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+/* Símbolo com brilho pulsante / Pulsing glow symbol */
+.radio-card-symbol.glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 10px var(--color-accent); }
+  50%       { text-shadow: 0 0 30px var(--color-accent), 0 0 60px var(--color-accent-glow); }
+}
+
+.radio-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--color-gold);
+  margin-bottom: 0.8rem;
+}
+
+.radio-card p {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* Wrapper do slot de laboratório / Lab slot wrapper */
+.lab-image-slot-wrapper {
+  margin-top: var(--spacing-md);
+}
+
+/* ── 12. LINHA DO TEMPO / TIMELINE ── */
+.timeline-container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-md) 0;
+}
+
+/* Linha central da timeline / Timeline center line */
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--color-accent), transparent);
+  transform: translateX(-50%);
+}
+
+/* Item da timeline / Timeline item */
+.timeline-item {
+  position: relative;
+  width: 45%;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Item à esquerda / Left item */
+.timeline-item.left {
+  left: 0;
+  text-align: right;
+}
+
+/* Item à direita / Right item */
+.timeline-item.right {
+  left: 55%;
+  text-align: left;
+}
+
+/* Ponto da timeline / Timeline dot */
+.timeline-dot {
+  position: absolute;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent-dim);
+  border: 2px solid var(--color-accent);
+  top: 8px;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Posição do ponto para item esquerdo / Dot position for left item */
+.timeline-item.left .timeline-dot {
+  right: -10.5%;
+}
+
+/* Posição do ponto para item direito / Dot position for right item */
+.timeline-item.right .timeline-dot {
+  left: -10.5%;
+}
+
+/* Ponto em destaque / Highlighted dot */
+.timeline-dot.highlight {
+  background: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent);
+}
+
+/* Conteúdo do item da timeline / Timeline item content */
+.timeline-content {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.2rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.timeline-content:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Conteúdo em destaque / Highlighted content */
+.timeline-content.highlight {
+  border-color: var(--color-accent);
+  background: var(--color-surface-2);
+}
+
+/* Ano da timeline / Timeline year */
+.timeline-year {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--color-accent);
+  margin-bottom: 0.3rem;
+}
+
+.timeline-content h3 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--color-gold);
+  margin-bottom: 0.4rem;
+}
+
+.timeline-content p {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* ── 13. GALERIA / GALLERY ── */
+#gallery { background: var(--color-bg); }
+
+/* Instrução da galeria / Gallery instruction */
+.gallery-instruction {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+/* Grade da galeria / Gallery grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas / 3 columns */
+  gap: var(--spacing-sm);
+}
+
+/* Slot individual da galeria / Individual gallery slot */
+.gallery-slot {
+  position: relative;
+  aspect-ratio: 4/3;  /* Proporção fixa / Fixed ratio */
+  background: var(--color-surface);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-slot:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Imagem carregada na galeria / Loaded gallery image */
+.gallery-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Input de arquivo na galeria / Gallery file input */
+.gallery-slot input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+}
+
+/* Label da galeria / Gallery label */
+.gallery-slot .slot-label {
+  z-index: 2;
+}
+
+/* ── 14. SEÇÃO LEGADO / LEGACY SECTION ── */
+.legacy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+/* Card de legado / Legacy card */
+.legacy-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  text-align: center;
+  transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+.legacy-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-gold);
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.15);
+}
+
+/* Card de legado com imagem / Legacy image card */
+.legacy-card.image-card {
+  padding: 0;
+  overflow: hidden;
+  min-height: 250px;
+}
+.legacy-card.image-card .image-slot {
+  min-height: 250px;
+  border: none;
+  border-radius: var(--radius-lg);
+}
+
+/* Ícone do legado / Legacy icon */
+.legacy-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.legacy-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--color-gold);
+  margin-bottom: 0.8rem;
+}
+
+.legacy-card p {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* ── 15. SEÇÃO FRASES / QUOTES SECTION ── */
+#frases { background: var(--color-bg); }
+
+/* Carrossel de frases / Quotes carousel */
+.quotes-carousel {
+  position: relative;
+  max-width: 750px;
+  margin: 0 auto var(--spacing-md);
+  min-height: 200px;
+}
+
+/* Slide individual / Individual slide */
+.quote-slide {
+  display: none;   /* Oculto por padrão / Hidden by default */
+  animation: fade-in var(--transition-normal) ease;
+}
+.quote-slide.active {
+  display: block;  /* Visível quando ativo / Visible when active */
+}
+
+/* Animação de entrada / Fade-in animation */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Blockquote das frases / Quote blockquote */
+blockquote {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  position: relative;
+}
+
+/* Aspas decorativas / Decorative quotation marks */
+blockquote::before {
+  content: '"';
+  position: absolute;
+  top: -20px; left: 30px;
+  font-family: var(--font-serif);
+  font-size: 5rem;
+  color: var(--color-accent);
+  opacity: 0.2;
+  line-height: 1;
+}
+
+/* Texto da frase / Quote text */
+.quote-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-style: italic;
+  color: var(--color-text);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* Citação / Citation */
+cite {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--color-accent);
+  font-style: normal;
+}
+
+/* Controles do carrossel / Carousel controls */
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+/* Botões de navegação do carrossel / Carousel navigation buttons */
+.carousel-btn {
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Pontos do carrossel / Carousel dots */
+.carousel-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Ponto individual / Individual dot */
+.carousel-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-border);
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.carousel-dot.active {
+  background: var(--color-accent);
+  transform: scale(1.3);
+}
+
+/* ── 16. RODAPÉ / FOOTER ── */
+#footer {
+  background: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
+  padding: var(--spacing-lg) 0;
+  text-align: center;
+}
+
+/* Marca do rodapé / Footer brand */
+.footer-brand {
+  margin-bottom: var(--spacing-md);
+}
+
+.footer-name {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-text);
+  margin-top: 0.5rem;
+}
+
+.footer-dates {
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  letter-spacing: 0.2em;
+}
+
+/* Frase do rodapé / Footer quote */
+.footer-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0 auto var(--spacing-sm);
+  font-size: 0.95rem;
+}
+
+/* Créditos do rodapé / Footer credits */
+.footer-credits {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+/* ── 17. RESPONSIVIDADE / RESPONSIVENESS ── */
+
+/* Tablet (≤ 900px) */
+@media (max-width: 900px) {
+
+  /* Navbar: ocultar links em telas menores / Hide nav links on smaller screens */
+  .nav-links { display: none; }
+
+  /* Bio: empilhar colunas / Stack bio columns */
+  .bio-grid {
+    grid-template-columns: 1fr;
+  }
+  .bio-image-wrapper { order: -1; } /* Imagem acima do texto / Image above text */
+
+  /* Radio cards: 1 coluna / 1 column */
+  .radio-cards { grid-template-columns: 1fr; }
+
+  /* Legacy grid: 2 colunas / 2 columns */
+  .legacy-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Gallery: 2 colunas / 2 columns */
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Timeline: simplificar / Simplify timeline */
+  .timeline-container::before { left: 20px; }
+  .timeline-item.left,
+  .timeline-item.right {
+    width: 85%;
+    left: 40px;
+    text-align: left;
+  }
+  .timeline-item.left .timeline-dot,
+  .timeline-item.right .timeline-dot {
+    left: -30px;
+    right: auto;
+  }
+}
+
+/* Mobile (≤ 600px) */
+@media (max-width: 600px) {
+
+  /* Reduzir espaçamentos / Reduce spacings */
+  section { padding: var(--spacing-lg) 0; }
+
+  /* Hero: imagem menor / Smaller hero image */
+  .hero-image-slot { width: 160px; height: 160px; }
+
+  /* Gallery: 1 coluna / 1 column */
+  .gallery-grid { grid-template-columns: 1fr; }
+
+  /* Legacy: 1 coluna / 1 column */
+  .legacy-grid { grid-template-columns: 1fr; }
+
+  /* Stats: empilhar / Stack stats */
+  .stats-row { flex-direction: column; }
+}
+
+/* ── 18. ANIMAÇÕES DE ENTRADA (Scroll) / SCROLL ENTRY ANIMATIONS ── */
+
+/* Elementos que serão animados ao entrar na tela / Elements to animate on screen entry */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Estado visível / Visible state */
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Atrasos escalonados para cards / Staggered delays for cards */
+.animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
+.animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+.animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
+.animate-on-scroll:nth-child(4) { transition-delay: 0.4s; }
+.animate-on-scroll:nth-child(5) { transition-delay: 0.5s; }
+.animate-on-scroll:nth-child(6) { transition-delay: 0.6s; }

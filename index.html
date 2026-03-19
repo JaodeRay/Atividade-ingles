@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  SITE: Homenagem a Marie Curie / Tribute to Marie Curie
+  IDIOMAS / LANGUAGES: Português (PT) | English (EN)
+  TEMA / THEME: Rádio & Radioatividade / Radio & Radioactivity
+  AUTOR / AUTHOR: Criado com HTML, CSS e JavaScript
+  ============================================================
+-->
+<html lang="pt">
+<head>
+  <!-- ── Meta tags básicas / Basic meta tags ── -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ── Título da aba / Browser tab title ── -->
+  <title>Marie Curie – A Luz da Ciência / The Light of Science</title>
+
+  <!-- ── Folha de estilos externa / External stylesheet ── -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ── Google Fonts: Playfair Display (elegante) + Roboto Mono (científico) ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       PARTÍCULAS DE FUNDO (efeito radioativo animado)
+       BACKGROUND PARTICLES (animated radioactive effect)
+  ════════════════════════════════════════════════════════ -->
+  <div id="particles-container" aria-hidden="true"></div>
+
+  <!-- ════════════════════════════════════════════════════════
+       BARRA DE NAVEGAÇÃO / NAVIGATION BAR
+  ════════════════════════════════════════════════════════ -->
+  <nav id="navbar">
+    <!-- Logo / Símbolo de rádio estilizado -->
+    <div class="nav-logo">
+      <span class="radio-symbol">☢</span>
+      <span class="nav-title" data-pt="Marie Curie" data-en="Marie Curie">Marie Curie</span>
+    </div>
+
+    <!-- Links de navegação / Navigation links -->
+    <ul class="nav-links">
+      <li><a href="#hero"     data-pt="Início"      data-en="Home">Início</a></li>
+      <li><a href="#bio"      data-pt="Biografia"   data-en="Biography">Biografia</a></li>
+      <li><a href="#timeline" data-pt="Linha do Tempo" data-en="Timeline">Linha do Tempo</a></li>
+      <li><a href="#gallery"  data-pt="Galeria"     data-en="Gallery">Galeria</a></li>
+      <li><a href="#legado"   data-pt="Legado"      data-en="Legacy">Legado</a></li>
+      <li><a href="#frases"   data-pt="Frases"      data-en="Quotes">Frases</a></li>
+    </ul>
+
+    <!-- Botão de alternância de idioma / Language toggle button -->
+    <button id="lang-toggle" onclick="toggleLanguage()" aria-label="Alternar idioma / Toggle language">
+      <span id="lang-label">EN</span>
+    </button>
+  </nav>
+
+  <!-- ════════════════════════════════════════════════════════
+       SEÇÃO HERO – Cabeçalho principal / Main header section
+  ════════════════════════════════════════════════════════ -->
+  <section id="hero">
+
+    <!-- Ondas de rádio animadas ao fundo / Animated radio waves in background -->
+    <div class="radio-waves" aria-hidden="true">
+      <div class="wave wave-1"></div>
+      <div class="wave wave-2"></div>
+      <div class="wave wave-3"></div>
+      <div class="wave wave-4"></div>
+    </div>
+
+    <!-- Slot principal de imagem (foto de destaque) / Main image slot (featured photo) -->
+    <div class="hero-image-slot" id="hero-slot">
+      <label for="hero-upload" class="slot-label">
+        <!-- Ícone de câmera / Camera icon -->
+        <div class="slot-icon">📷</div>
+        <!-- Texto do slot em PT e EN (apenas um visível por vez) -->
+        <span class="slot-text" data-pt="Clique para adicionar foto principal" data-en="Click to add main photo">
+          Clique para adicionar foto principal
+        </span>
+      </label>
+      <!-- Input oculto para upload de imagem / Hidden input for image upload -->
+      <input type="file" id="hero-upload" accept="image/*" onchange="loadImage(this, 'hero-slot')" />
+      <!-- A imagem carregada aparecerá aqui / Uploaded image will appear here -->
+      <img id="hero-img" src="images/BC9sabTUgC86.jpg" alt="Marie Curie" />
+    </div>
+
+    <!-- Conteúdo textual do hero / Hero text content -->
+    <div class="hero-content">
+      <!-- Subtítulo decorativo / Decorative subtitle -->
+      <p class="hero-subtitle" data-pt="1867 – 1934 · Física & Química" data-en="1867 – 1934 · Physics & Chemistry">
+        1867 – 1934 · Física &amp; Química
+      </p>
+
+      <!-- Título principal / Main title -->
+      <h1 class="hero-title">
+        <span class="name-marie">Marie</span>
+        <span class="name-curie">Curie</span>
+      </h1>
+
+      <!-- Tagline bilíngue / Bilingual tagline -->
+      <p class="hero-tagline"
+         data-pt="A mulher que iluminou o mundo com a luz da ciência."
+         data-en="The woman who illuminated the world with the light of science.">
+        A mulher que iluminou o mundo com a luz da ciência.
+      </p>
+
+      <!-- Botão de chamada para ação / Call-to-action button -->
+      <a href="#bio" class="cta-button"
+         data-pt="Descobrir sua história"
+         data-en="Discover her story">
+        Descobrir sua história
+      </a>
+    </div>
+
+    <!-- Indicador de scroll animado / Animated scroll indicator -->
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-dot"></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SEÇÃO BIOGRAFIA / BIOGRAPHY SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section id="bio">
+    <div class="container">
+
+      <!-- Cabeçalho da seção / Section header -->
+      <div class="section-header">
+        <span class="section-tag" data-pt="Quem foi ela" data-en="Who she was">Quem foi ela</span>
+        <h2 data-pt="Uma Vida Extraordinária" data-en="An Extraordinary Life">Uma Vida Extraordinária</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- Grid de conteúdo: texto + imagem / Content grid: text + image -->
+      <div class="bio-grid">
+
+        <!-- Coluna de texto / Text column -->
+        <div class="bio-text">
+
+          <!-- Parágrafo 1 – Origem / Origin -->
+          <p data-pt="Nascida Maria Salomea Skłodowska em 7 de novembro de 1867, em Varsóvia, na Polônia, Marie Curie cresceu em uma família intelectual em meio à opressão do domínio russo. Desde jovem, demonstrou brilhantismo excepcional nas ciências, mas as portas das universidades polonesas estavam fechadas para as mulheres."
+             data-en="Born Maria Salomea Skłodowska on November 7, 1867, in Warsaw, Poland, Marie Curie grew up in an intellectual family amid the oppression of Russian rule. From a young age, she showed exceptional brilliance in the sciences, but the doors of Polish universities were closed to women.">
+            Nascida Maria Salomea Skłodowska em 7 de novembro de 1867, em Varsóvia, na Polônia, Marie Curie cresceu em uma família intelectual em meio à opressão do domínio russo. Desde jovem, demonstrou brilhantismo excepcional nas ciências, mas as portas das universidades polonesas estavam fechadas para as mulheres.
+          </p>
+
+          <!-- Parágrafo 2 – Paris / Paris -->
+          <p data-pt="Em 1891, com 24 anos, mudou-se para Paris para estudar na Universidade de Sorbonne. Vivendo em extrema pobreza, muitas vezes passando fome e frio, ela se tornou a primeira mulher a se formar em Física pela Sorbonne em 1893, e em Matemática em 1894."
+             data-en="In 1891, at age 24, she moved to Paris to study at the University of the Sorbonne. Living in extreme poverty, often going hungry and cold, she became the first woman to earn a degree in Physics from the Sorbonne in 1893, and in Mathematics in 1894.">
+            Em 1891, com 24 anos, mudou-se para Paris para estudar na Universidade de Sorbonne. Vivendo em extrema pobreza, muitas vezes passando fome e frio, ela se tornou a primeira mulher a se formar em Física pela Sorbonne em 1893, e em Matemática em 1894.
+          </p>
+
+          <!-- Parágrafo 3 – Descobertas / Discoveries -->
+          <p data-pt="Junto ao marido Pierre Curie, Marie descobriu dois novos elementos químicos: o Polônio (nomeado em homenagem à sua pátria) e o Rádio, em 1898. Ela cunhou o termo 'radioatividade' para descrever a emissão espontânea de radiação por certos elementos, revolucionando a física e a química modernas."
+             data-en="Together with her husband Pierre Curie, Marie discovered two new chemical elements: Polonium (named in honor of her homeland) and Radium, in 1898. She coined the term 'radioactivity' to describe the spontaneous emission of radiation by certain elements, revolutionizing modern physics and chemistry.">
+            Junto ao marido Pierre Curie, Marie descobriu dois novos elementos químicos: o Polônio (nomeado em homenagem à sua pátria) e o Rádio, em 1898. Ela cunhou o termo "radioatividade" para descrever a emissão espontânea de radiação por certos elementos, revolucionando a física e a química modernas.
+          </p>
+
+          <!-- Parágrafo 4 – Nobel / Nobel -->
+          <p data-pt="Em 1903, recebeu o Prêmio Nobel de Física — tornando-se a primeira mulher na história a ganhar um Nobel. Em 1911, conquistou seu segundo Nobel, desta vez em Química, tornando-se a única pessoa até hoje a vencer o prêmio em duas áreas científicas distintas."
+             data-en="In 1903, she received the Nobel Prize in Physics — becoming the first woman in history to win a Nobel. In 1911, she won her second Nobel, this time in Chemistry, becoming the only person to date to win the prize in two distinct scientific fields.">
+            Em 1903, recebeu o Prêmio Nobel de Física — tornando-se a primeira mulher na história a ganhar um Nobel. Em 1911, conquistou seu segundo Nobel, desta vez em Química, tornando-se a única pessoa até hoje a vencer o prêmio em duas áreas científicas distintas.
+          </p>
+
+          <!-- Cards de estatísticas / Statistics cards -->
+          <div class="stats-row">
+            <div class="stat-card">
+              <span class="stat-number">2</span>
+              <span class="stat-label" data-pt="Prêmios Nobel" data-en="Nobel Prizes">Prêmios Nobel</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">2</span>
+              <span class="stat-label" data-pt="Elementos Descobertos" data-en="Elements Discovered">Elementos Descobertos</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">1ª</span>
+              <span class="stat-label" data-pt="Mulher Nobel" data-en="Woman Nobel">Mulher Nobel</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna de imagem (slot 2) / Image column (slot 2) -->
+        <div class="bio-image-wrapper">
+          <div class="image-slot" id="bio-slot">
+            <label for="bio-upload" class="slot-label">
+              <div class="slot-icon">🔬</div>
+              <span class="slot-text" data-pt="Adicionar foto da biografia" data-en="Add biography photo">
+                Adicionar foto da biografia
+              </span>
+            </label>
+            <input type="file" id="bio-upload" accept="image/*" onchange="loadImage(this, 'bio-slot')" />
+            <img id="bio-img" src="images/d6dKblB0Qt2r.jpg" alt="Marie Curie no laboratório" />
+          </div>
+          <!-- Moldura decorativa / Decorative frame -->
+          <div class="image-frame-decoration"></div>
+        </div>
+
+      </div><!-- /bio-grid -->
+    </div><!-- /container -->
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SEÇÃO RÁDIO – Destaque da descoberta / Radio discovery highlight
+  ════════════════════════════════════════════════════════ -->
+  <section id="radio-section">
+    <div class="container">
+
+      <!-- Cabeçalho da seção / Section header -->
+      <div class="section-header light">
+        <span class="section-tag" data-pt="A Grande Descoberta" data-en="The Great Discovery">A Grande Descoberta</span>
+        <h2 data-pt="O Rádio: Elemento que Mudou o Mundo" data-en="Radium: The Element That Changed the World">
+          O Rádio: Elemento que Mudou o Mundo
+        </h2>
+        <div class="section-divider light"></div>
+      </div>
+
+      <!-- Grid de cards sobre o rádio / Radio element cards grid -->
+      <div class="radio-cards">
+
+        <!-- Card 1 – Símbolo químico / Chemical symbol -->
+        <div class="radio-card">
+          <div class="radio-card-symbol">Ra</div>
+          <h3 data-pt="Elemento 88" data-en="Element 88">Elemento 88</h3>
+          <p data-pt="O Rádio (Ra) é o elemento de número atômico 88 na tabela periódica, descoberto por Marie e Pierre Curie em 1898 a partir da pechblenda."
+             data-en="Radium (Ra) is the element with atomic number 88 in the periodic table, discovered by Marie and Pierre Curie in 1898 from pitchblende.">
+            O Rádio (Ra) é o elemento de número atômico 88 na tabela periódica, descoberto por Marie e Pierre Curie em 1898 a partir da pechblenda.
+          </p>
+        </div>
+
+        <!-- Card 2 – Brilho / Glow -->
+        <div class="radio-card featured">
+          <div class="radio-card-symbol glow">☢</div>
+          <h3 data-pt="A Luz Verde" data-en="The Green Glow">A Luz Verde</h3>
+          <p data-pt="O Rádio emite uma luz esverdeada característica no escuro. Marie Curie guardava amostras em seu laboratório e as descrevia como 'pequenas luzes fadas' — sem saber que a radiação estava destruindo sua saúde."
+             data-en="Radium emits a characteristic greenish glow in the dark. Marie Curie kept samples in her laboratory and described them as 'little fairy lights' — unaware that the radiation was destroying her health.">
+            O Rádio emite uma luz esverdeada característica no escuro. Marie Curie guardava amostras em seu laboratório e as descrevia como "pequenas luzes fadas" — sem saber que a radiação estava destruindo sua saúde.
+          </p>
+        </div>
+
+        <!-- Card 3 – Legado médico / Medical legacy -->
+        <div class="radio-card">
+          <div class="radio-card-symbol">⚕</div>
+          <h3 data-pt="Medicina Moderna" data-en="Modern Medicine">Medicina Moderna</h3>
+          <p data-pt="A descoberta do Rádio abriu caminho para a radioterapia no tratamento do câncer. Durante a Primeira Guerra Mundial, Marie criou unidades móveis de raio-X — as 'petites Curies' — salvando milhares de vidas."
+             data-en="The discovery of Radium paved the way for radiotherapy in cancer treatment. During World War I, Marie created mobile X-ray units — the 'petites Curies' — saving thousands of lives.">
+            A descoberta do Rádio abriu caminho para a radioterapia no tratamento do câncer. Durante a Primeira Guerra Mundial, Marie criou unidades móveis de raio-X — as "petites Curies" — salvando milhares de vidas.
+          </p>
+        </div>
+
+      </div><!-- /radio-cards -->
+
+      <!-- Slot de imagem para o laboratório / Lab image slot -->
+      <div class="lab-image-slot-wrapper">
+        <div class="image-slot wide" id="lab-slot">
+          <label for="lab-upload" class="slot-label">
+            <div class="slot-icon">⚗️</div>
+            <span class="slot-text" data-pt="Adicionar imagem do laboratório / descoberta" data-en="Add laboratory / discovery image">
+              Adicionar imagem do laboratório / descoberta
+            </span>
+          </label>
+          <input type="file" id="lab-upload" accept="image/*" onchange="loadImage(this, 'lab-slot')" />
+          <img id="lab-img" src="images/b5kyfbRPb2Et.jpg" alt="Laboratório de Marie Curie" />
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SEÇÃO LINHA DO TEMPO / TIMELINE SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section id="timeline">
+    <div class="container">
+
+      <!-- Cabeçalho da seção / Section header -->
+      <div class="section-header">
+        <span class="section-tag" data-pt="Sua Jornada" data-en="Her Journey">Sua Jornada</span>
+        <h2 data-pt="Linha do Tempo" data-en="Timeline">Linha do Tempo</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- Linha do tempo vertical / Vertical timeline -->
+      <div class="timeline-container">
+
+        <!-- Item 1 -->
+        <div class="timeline-item left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">1867</span>
+            <h3 data-pt="Nascimento" data-en="Birth">Nascimento</h3>
+            <p data-pt="Maria Skłodowska nasce em Varsóvia, Polônia, em 7 de novembro."
+               data-en="Maria Skłodowska is born in Warsaw, Poland, on November 7.">
+              Maria Skłodowska nasce em Varsóvia, Polônia, em 7 de novembro.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="timeline-item right">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">1891</span>
+            <h3 data-pt="Paris & Sorbonne" data-en="Paris & Sorbonne">Paris &amp; Sorbonne</h3>
+            <p data-pt="Muda-se para Paris e ingressa na Universidade de Sorbonne, enfrentando pobreza extrema."
+               data-en="Moves to Paris and enrolls at the University of the Sorbonne, facing extreme poverty.">
+              Muda-se para Paris e ingressa na Universidade de Sorbonne, enfrentando pobreza extrema.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="timeline-item left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">1895</span>
+            <h3 data-pt="Casamento com Pierre" data-en="Marriage to Pierre">Casamento com Pierre</h3>
+            <p data-pt="Casa-se com o físico Pierre Curie, iniciando uma das maiores parcerias científicas da história."
+               data-en="Marries physicist Pierre Curie, beginning one of the greatest scientific partnerships in history.">
+              Casa-se com o físico Pierre Curie, iniciando uma das maiores parcerias científicas da história.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="timeline-item right">
+          <div class="timeline-dot highlight"></div>
+          <div class="timeline-content highlight">
+            <span class="timeline-year">1898</span>
+            <h3 data-pt="Polônio & Rádio" data-en="Polonium & Radium">Polônio &amp; Rádio</h3>
+            <p data-pt="Descobre os elementos Polônio e Rádio. Cria o termo 'radioatividade'."
+               data-en="Discovers the elements Polonium and Radium. Coins the term 'radioactivity'.">
+              Descobre os elementos Polônio e Rádio. Cria o termo "radioatividade".
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="timeline-item left">
+          <div class="timeline-dot highlight"></div>
+          <div class="timeline-content highlight">
+            <span class="timeline-year">1903</span>
+            <h3 data-pt="1º Nobel – Física" data-en="1st Nobel – Physics">1º Nobel – Física</h3>
+            <p data-pt="Recebe o Prêmio Nobel de Física, tornando-se a primeira mulher a ganhar o prêmio."
+               data-en="Receives the Nobel Prize in Physics, becoming the first woman to win the award.">
+              Recebe o Prêmio Nobel de Física, tornando-se a primeira mulher a ganhar o prêmio.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="timeline-item right">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">1906</span>
+            <h3 data-pt="Morte de Pierre" data-en="Pierre's Death">Morte de Pierre</h3>
+            <p data-pt="Pierre morre em um acidente. Marie assume sua cátedra na Sorbonne, tornando-se a primeira professora mulher da instituição."
+               data-en="Pierre dies in an accident. Marie takes over his chair at the Sorbonne, becoming the institution's first female professor.">
+              Pierre morre em um acidente. Marie assume sua cátedra na Sorbonne, tornando-se a primeira professora mulher da instituição.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 7 -->
+        <div class="timeline-item left">
+          <div class="timeline-dot highlight"></div>
+          <div class="timeline-content highlight">
+            <span class="timeline-year">1911</span>
+            <h3 data-pt="2º Nobel – Química" data-en="2nd Nobel – Chemistry">2º Nobel – Química</h3>
+            <p data-pt="Conquista o segundo Nobel, em Química — feito inédito na história dos prêmios."
+               data-en="Wins her second Nobel, in Chemistry — an unprecedented feat in the history of the awards.">
+              Conquista o segundo Nobel, em Química — feito inédito na história dos prêmios.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 8 -->
+        <div class="timeline-item right">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">1914–18</span>
+            <h3 data-pt="Petites Curies" data-en="Petites Curies">Petites Curies</h3>
+            <p data-pt="Cria unidades móveis de raio-X para a Primeira Guerra Mundial, salvando inúmeras vidas nos campos de batalha."
+               data-en="Creates mobile X-ray units for World War I, saving countless lives on the battlefields.">
+              Cria unidades móveis de raio-X para a Primeira Guerra Mundial, salvando inúmeras vidas nos campos de batalha.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 9 -->
+        <div class="timeline-item left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">1934</span>
+            <h3 data-pt="Legado Eterno" data-en="Eternal Legacy">Legado Eterno</h3>
+            <p data-pt="Falece em 4 de julho de 1934, vítima de anemia aplástica causada pela exposição à radiação. Seu legado transforma para sempre a ciência."
+               data-en="Dies on July 4, 1934, from aplastic anemia caused by radiation exposure. Her legacy forever transforms science.">
+              Falece em 4 de julho de 1934, vítima de anemia aplástica causada pela exposição à radiação. Seu legado transforma para sempre a ciência.
+            </p>
+          </div>
+        </div>
+
+      </div><!-- /timeline-container -->
+    </div><!-- /container -->
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SEÇÃO GALERIA DE IMAGENS / IMAGE GALLERY SECTION
+       (Slots para o usuário adicionar suas próprias fotos)
+  ════════════════════════════════════════════════════════ -->
+  <section id="gallery">
+    <div class="container">
+
+      <!-- Cabeçalho da seção / Section header -->
+      <div class="section-header">
+        <span class="section-tag" data-pt="Memórias Visuais" data-en="Visual Memories">Memórias Visuais</span>
+        <h2 data-pt="Galeria de Imagens" data-en="Image Gallery">Galeria de Imagens</h2>
+        <div class="section-divider"></div>
+        <!-- Instrução para o usuário / User instruction -->
+        <p class="gallery-instruction"
+           data-pt="Clique em qualquer quadro para adicionar sua imagem."
+           data-en="Click on any frame to add your image.">
+          Clique em qualquer quadro para adicionar sua imagem.
+        </p>
+      </div>
+
+      <!-- Grade de slots de galeria / Gallery slots grid -->
+      <div class="gallery-grid">
+
+        <!-- Slot de galeria 1 -->
+        <div class="gallery-slot" id="gal-slot-1">
+          <label for="gal-upload-1" class="slot-label">
+            <div class="slot-icon">+</div>
+            <span class="slot-text" data-pt="Foto 1" data-en="Photo 1">Foto 1</span>
+          </label>
+          <input type="file" id="gal-upload-1" accept="image/*" onchange="loadImage(this, 'gal-slot-1')" />
+          <img id="gal-img-1" src="images/BC9sabTUgC86.jpg" alt="Marie Curie" />
+        </div>
+
+        <!-- Slot de galeria 2 -->
+        <div class="gallery-slot" id="gal-slot-2">
+          <label for="gal-upload-2" class="slot-label">
+            <div class="slot-icon">+</div>
+            <span class="slot-text" data-pt="Foto 2" data-en="Photo 2">Foto 2</span>
+          </label>
+          <input type="file" id="gal-upload-2" accept="image/*" onchange="loadImage(this, 'gal-slot-2')" />
+          <img id="gal-img-2" src="images/d6dKblB0Qt2r.jpg" alt="Marie Curie no laboratório" />
+        </div>
+
+        <!-- Slot de galeria 3 -->
+        <div class="gallery-slot" id="gal-slot-3">
+          <label for="gal-upload-3" class="slot-label">
+            <div class="slot-icon">+</div>
+            <span class="slot-text" data-pt="Foto 3" data-en="Photo 3">Foto 3</span>
+          </label>
+          <input type="file" id="gal-upload-3" accept="image/*" onchange="loadImage(this, 'gal-slot-3')" />
+          <img id="gal-img-3" src="images/b5kyfbRPb2Et.jpg" alt="Marie Curie em Paris" />
+        </div>
+
+        <!-- Slot de galeria 4 -->
+        <div class="gallery-slot" id="gal-slot-4">
+          <label for="gal-upload-4" class="slot-label">
+            <div class="slot-icon">+</div>
+            <span class="slot-text" data-pt="Foto 4" data-en="Photo 4">Foto 4</span>
+          </label>
+          <input type="file" id="gal-upload-4" accept="image/*" onchange="loadImage(this, 'gal-slot-4')" />
+          <img id="gal-img-4" src="images/mlRV9RKKREaM.jpg" alt="Marie Curie com instrumento" />
+        </div>
+
+        <!-- Slot de galeria 5 -->
+        <div class="gallery-slot" id="gal-slot-5">
+          <label for="gal-upload-5" class="slot-label">
+            <div class="slot-icon">+</div>
+            <span class="slot-text" data-pt="Foto 5" data-en="Photo 5">Foto 5</span>
+          </label>
+          <input type="file" id="gal-upload-5" accept="image/*" onchange="loadImage(this, 'gal-slot-5')" />
+          <img id="gal-img-5" src="images/GBetunQBzn3a.jpg" alt="Marie Curie retrato" />
+        </div>
+
+        <!-- Slot de galeria 6 -->
+        <div class="gallery-slot" id="gal-slot-6">
+          <label for="gal-upload-6" class="slot-label">
+            <div class="slot-icon">+</div>
+            <span class="slot-text" data-pt="Foto 6" data-en="Photo 6">Foto 6</span>
+          </label>
+          <input type="file" id="gal-upload-6" accept="image/*" onchange="loadImage(this, 'gal-slot-6')" />
+          <img id="gal-img-6" src="images/ZSZKg8BUZJ6Q.jpg" alt="Marie Curie colorizado" />
+        </div>
+
+      </div><!-- /gallery-grid -->
+    </div><!-- /container -->
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SEÇÃO LEGADO / LEGACY SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section id="legado">
+    <div class="container">
+
+      <!-- Cabeçalho da seção / Section header -->
+      <div class="section-header light">
+        <span class="section-tag" data-pt="Impacto Duradouro" data-en="Lasting Impact">Impacto Duradouro</span>
+        <h2 data-pt="O Legado de Marie Curie" data-en="The Legacy of Marie Curie">O Legado de Marie Curie</h2>
+        <div class="section-divider light"></div>
+      </div>
+
+      <!-- Grid de cards de legado / Legacy cards grid -->
+      <div class="legacy-grid">
+
+        <!-- Card 1 – Ciência / Science -->
+        <div class="legacy-card">
+          <div class="legacy-icon">🔬</div>
+          <h3 data-pt="Ciência" data-en="Science">Ciência</h3>
+          <p data-pt="Fundou o campo da física nuclear moderna. Seus estudos sobre radioatividade abriram caminho para a física atômica e a medicina nuclear."
+             data-en="Founded the field of modern nuclear physics. Her studies on radioactivity paved the way for atomic physics and nuclear medicine.">
+            Fundou o campo da física nuclear moderna. Seus estudos sobre radioatividade abriram caminho para a física atômica e a medicina nuclear.
+          </p>
+        </div>
+
+        <!-- Card 2 – Medicina / Medicine -->
+        <div class="legacy-card">
+          <div class="legacy-icon">🏥</div>
+          <h3 data-pt="Medicina" data-en="Medicine">Medicina</h3>
+          <p data-pt="A radioterapia, usada hoje para tratar milhões de pacientes com câncer, tem raízes diretas nas descobertas de Marie Curie sobre o Rádio."
+             data-en="Radiotherapy, used today to treat millions of cancer patients, has direct roots in Marie Curie's discoveries about Radium.">
+            A radioterapia, usada hoje para tratar milhões de pacientes com câncer, tem raízes diretas nas descobertas de Marie Curie sobre o Rádio.
+          </p>
+        </div>
+
+        <!-- Card 3 – Feminismo / Feminism -->
+        <div class="legacy-card">
+          <div class="legacy-icon">♀</div>
+          <h3 data-pt="Empoderamento" data-en="Empowerment">Empoderamento</h3>
+          <p data-pt="Provou que o gênero não limita o gênio. Abriu portas para gerações de mulheres nas ciências, sendo símbolo eterno de perseverança e inteligência."
+             data-en="Proved that gender does not limit genius. She opened doors for generations of women in science, being an eternal symbol of perseverance and intelligence.">
+            Provou que o gênero não limita o gênio. Abriu portas para gerações de mulheres nas ciências, sendo símbolo eterno de perseverança e inteligência.
+          </p>
+        </div>
+
+        <!-- Card 4 – Educação / Education -->
+        <div class="legacy-card">
+          <div class="legacy-icon">📚</div>
+          <h3 data-pt="Educação" data-en="Education">Educação</h3>
+          <p data-pt="Fundou o Instituto Curie em Paris (1920), ainda hoje um dos principais centros de pesquisa oncológica do mundo, e o Instituto do Rádio em Varsóvia."
+             data-en="Founded the Curie Institute in Paris (1920), still one of the world's leading cancer research centers, and the Radium Institute in Warsaw.">
+            Fundou o Instituto Curie em Paris (1920), ainda hoje um dos principais centros de pesquisa oncológica do mundo, e o Instituto do Rádio em Varsóvia.
+          </p>
+        </div>
+
+        <!-- Card 5 – Slot de imagem de legado / Legacy image slot -->
+        <div class="legacy-card image-card">
+          <div class="image-slot" id="legacy-slot">
+            <label for="legacy-upload" class="slot-label">
+              <div class="slot-icon">🏆</div>
+              <span class="slot-text" data-pt="Adicionar imagem do legado" data-en="Add legacy image">
+                Adicionar imagem do legado
+              </span>
+            </label>
+            <input type="file" id="legacy-upload" accept="image/*" onchange="loadImage(this, 'legacy-slot')" />
+            <img id="legacy-img" src="images/ZSZKg8BUZJ6Q.jpg" alt="Legado de Marie Curie" />
+          </div>
+        </div>
+
+        <!-- Card 6 – Homenagens / Honors -->
+        <div class="legacy-card">
+          <div class="legacy-icon">⭐</div>
+          <h3 data-pt="Homenagens" data-en="Honors">Homenagens</h3>
+          <p data-pt="O elemento 96 da tabela periódica, o Cúrio (Cm), foi nomeado em sua homenagem. Sua imagem estampou notas de dinheiro polonesas e francesas."
+             data-en="Element 96 of the periodic table, Curium (Cm), was named in her honor. Her image appeared on Polish and French banknotes.">
+            O elemento 96 da tabela periódica, o Cúrio (Cm), foi nomeado em sua homenagem. Sua imagem estampou notas de dinheiro polonesas e francesas.
+          </p>
+        </div>
+
+      </div><!-- /legacy-grid -->
+    </div><!-- /container -->
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SEÇÃO FRASES / QUOTES SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section id="frases">
+    <div class="container">
+
+      <!-- Cabeçalho da seção / Section header -->
+      <div class="section-header">
+        <span class="section-tag" data-pt="Suas Palavras" data-en="Her Words">Suas Palavras</span>
+        <h2 data-pt="Frases Imortais" data-en="Immortal Quotes">Frases Imortais</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- Carrossel de frases / Quotes carousel -->
+      <div class="quotes-carousel" id="quotes-carousel">
+
+        <!-- Frase 1 -->
+        <div class="quote-slide active">
+          <blockquote>
+            <p class="quote-text"
+               data-pt="&ldquo;Nada na vida deve ser temido, somente compreendido. Agora é hora de compreender mais para temer menos.&rdquo;"
+               data-en="&ldquo;Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less.&rdquo;">
+              &ldquo;Nada na vida deve ser temido, somente compreendido. Agora é hora de compreender mais para temer menos.&rdquo;
+            </p>
+            <cite>— Marie Curie</cite>
+          </blockquote>
+        </div>
+
+        <!-- Frase 2 -->
+        <div class="quote-slide">
+          <blockquote>
+            <p class="quote-text"
+               data-pt="&ldquo;Eu sou uma daquelas que pensam que a ciência tem grande beleza. Um cientista em seu laboratório não é apenas um técnico: é também uma criança colocada diante de fenômenos naturais que a impressionam como um conto de fadas.&rdquo;"
+               data-en="&ldquo;I am one of those who think like Nobel, that humanity will draw more good than evil from new discoveries.&rdquo;">
+              &ldquo;Eu sou uma daquelas que pensam que a ciência tem grande beleza. Um cientista em seu laboratório não é apenas um técnico: é também uma criança colocada diante de fenômenos naturais que a impressionam como um conto de fadas.&rdquo;
+            </p>
+            <cite>— Marie Curie</cite>
+          </blockquote>
+        </div>
+
+        <!-- Frase 3 -->
+        <div class="quote-slide">
+          <blockquote>
+            <p class="quote-text"
+               data-pt="&ldquo;Você não pode esperar construir um mundo melhor sem melhorar os indivíduos. Para esse fim, cada um de nós deve trabalhar para o seu próprio aperfeiçoamento.&rdquo;"
+               data-en="&ldquo;You cannot hope to build a better world without improving the individuals. To that end, each of us must work for our own improvement.&rdquo;">
+              &ldquo;Você não pode esperar construir um mundo melhor sem melhorar os indivíduos. Para esse fim, cada um de nós deve trabalhar para o seu próprio aperfeiçoamento.&rdquo;
+            </p>
+            <cite>— Marie Curie</cite>
+          </blockquote>
+        </div>
+
+        <!-- Frase 4 -->
+        <div class="quote-slide">
+          <blockquote>
+            <p class="quote-text"
+               data-pt="&ldquo;Seja menos curioso sobre as pessoas e mais curioso sobre as ideias.&rdquo;"
+               data-en="&ldquo;Be less curious about people and more curious about ideas.&rdquo;">
+              &ldquo;Seja menos curioso sobre as pessoas e mais curioso sobre as ideias.&rdquo;
+            </p>
+            <cite>— Marie Curie</cite>
+          </blockquote>
+        </div>
+
+      </div><!-- /quotes-carousel -->
+
+      <!-- Controles do carrossel / Carousel controls -->
+      <div class="carousel-controls">
+        <button class="carousel-btn" onclick="prevQuote()" aria-label="Frase anterior / Previous quote">&#8592;</button>
+        <div class="carousel-dots" id="carousel-dots">
+          <!-- Os pontos são gerados pelo JavaScript / Dots are generated by JavaScript -->
+        </div>
+        <button class="carousel-btn" onclick="nextQuote()" aria-label="Próxima frase / Next quote">&#8594;</button>
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       RODAPÉ / FOOTER
+  ════════════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="container">
+
+      <!-- Símbolo e nome / Symbol and name -->
+      <div class="footer-brand">
+        <span class="radio-symbol large">☢</span>
+        <p class="footer-name">Marie Curie</p>
+        <p class="footer-dates">1867 – 1934</p>
+      </div>
+
+      <!-- Frase de encerramento / Closing quote -->
+      <p class="footer-quote"
+         data-pt="&ldquo;A vida não é fácil para nenhum de nós. Mas e daí? Temos que ter perseverança e, acima de tudo, confiança em nós mesmos.&rdquo;"
+         data-en="&ldquo;Life is not easy for any of us. But what of that? We must have perseverance and above all confidence in ourselves.&rdquo;">
+        &ldquo;A vida não é fácil para nenhum de nós. Mas e daí? Temos que ter perseverança e, acima de tudo, confiança em nós mesmos.&rdquo;
+      </p>
+
+      <!-- Créditos / Credits -->
+      <p class="footer-credits"
+         data-pt="Site criado em homenagem a Marie Curie · Primeira mulher a ganhar o Prêmio Nobel"
+         data-en="Website created in honor of Marie Curie · First woman to win the Nobel Prize">
+        Site criado em homenagem a Marie Curie · Primeira mulher a ganhar o Prêmio Nobel
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════════════════════
+       SCRIPT JAVASCRIPT EXTERNO
+       EXTERNAL JAVASCRIPT SCRIPT
+  ════════════════════════════════════════════════════════ -->
+  <script src="script.js"></script>
+
+</body>
+</html>
